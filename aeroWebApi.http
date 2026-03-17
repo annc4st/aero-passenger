@@ -1,0 +1,7 @@
+@aeroWebApi_HostAddress = http://localhost:5204
+
+GET {{aeroWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
