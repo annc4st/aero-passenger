@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("aeroWebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e4b6548477ac8fc47c2126613a54cd36b0f47491")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c09ec94981e0131d6ac7b9fb30e0de232311918")]
 [assembly: System.Reflection.AssemblyProductAttribute("aeroWebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("aeroWebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
