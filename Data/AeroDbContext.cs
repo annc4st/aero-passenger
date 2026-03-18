@@ -5,7 +5,9 @@ namespace aeroWebApi.Data
 {
     public class AeroDbContext : DbContext
     {
-        public DbSet<Passenger> Passengers { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Flight> Flights { get; set; }
         public AeroDbContext(DbContextOptions<AeroDbContext> options) : base(options)
         {
         }
@@ -13,8 +15,8 @@ namespace aeroWebApi.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Passenger>()
-                .HasIndex(p => p.Email)
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
                 .IsUnique();
         }
 

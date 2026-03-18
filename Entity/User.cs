@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace aeroWebApi.Entity;
 
 
-public class Passenger
+public class User
 {
     public int Id { get; set; }
     [Required]

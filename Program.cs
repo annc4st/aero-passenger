@@ -3,6 +3,8 @@ using aeroWebApi.Repositories;
 using aeroWebApi.Data;
 using aeroWebApi.Entity;
 using Microsoft.EntityFrameworkCore;
+using aeroWebApi.Exceptions;
+using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +14,13 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<PasswordHasher>();
-builder.Services.AddScoped<PassengerRepository>();
-builder.Services.AddScoped<PassengerService>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<BookingRepository>();
+builder.Services.AddScoped<BookingService>();
+builder.Services.AddScoped<FlightRepository>();
+builder.Services.AddScoped<FlightService>();
+
 
 //db
 builder.Services.AddDbContext<AeroDbContext>(options =>
@@ -33,7 +40,6 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AeroDbContext>();
     // dbContext.Database.Migrate();
-
 
      try
     {
@@ -57,8 +63,8 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.EnsureDeleted();
     dbContext.Database.EnsureCreated();
 
-    dbContext.Passengers.AddRange(
-        new Passenger
+    dbContext.Users.AddRange(
+        new User
         {
             FirstName = "John",
             LastName = "Doe",
@@ -66,7 +72,7 @@ using (var scope = app.Services.CreateScope())
             DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, DateTimeKind.Utc),
             PasswordHash = "testhash"
         },
-        new Passenger
+        new User
         {
             FirstName = "Jane",
             LastName = "Smith",
@@ -77,6 +83,27 @@ using (var scope = app.Services.CreateScope())
     );
     dbContext.SaveChanges();
 }
+
+app.UseExceptionHandler(appError =>
+{
+    appError.Run(async context =>
+    {
+        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+
+        if (exception is NotFoundException)
+        {
+            context.Response.StatusCode = 404;
+        }
+        else
+        {
+            context.Response.StatusCode = 500;
+        }
+
+        await context.Response.WriteAsync(exception?.Message);
+    });
+});
+
+
 
 
 app.UseHttpsRedirection();
