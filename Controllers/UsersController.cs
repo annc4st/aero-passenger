@@ -25,6 +25,11 @@ public class UsersController : ControllerBase
 
     // GET /api/users
     [HttpGet]
+    public async Task<ActionResult<UserResponseDto>> GetUsers ()
+    {
+        var users = await _service.GetAll();
+        return Ok(users);
+    }
      
     // GET /api/users/{id}
     [HttpGet("{id}")]
@@ -33,7 +38,6 @@ public class UsersController : ControllerBase
         var user = await _service.GetUserById(id);
         if (user == null)
             return NotFound();
-
         return Ok(user);
     }
 
@@ -44,7 +48,8 @@ public class UsersController : ControllerBase
         try
         {
             var createdUser = await _service.CreateUser(userDto);
-//ASP.NET Core MVC/Web API helper that returns a 201 Created response with a Location header pointing to where the newly created resource can be retrieved.
+//ASP.NET Core MVC/Web API helper that returns a 201 Created response 
+//with a Location header pointing to where the newly created resource can be retrieved.
 
             return CreatedAtAction(
                 nameof(GetUserById),

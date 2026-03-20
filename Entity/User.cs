@@ -13,7 +13,7 @@ public class User
     [StringLength(50)]
     public string LastName { get; set; }= "";
     [Required]
-    public DateTime DateOfBirth { get; set; }
+    public DateOnly DateOfBirth { get; set; }
     [Required]
     public string PasswordHash { get; set; } = "";
     [Required]
@@ -26,9 +26,10 @@ public class User
 
     public int CalculateAge()
     {
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
         var age = today.Year - DateOfBirth.Year;
-        if (DateOfBirth.Date > today.AddYears(-age))
+       
+        if (today < DateOfBirth.AddYears(age))
             age--;
         return age;
     }

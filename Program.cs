@@ -13,6 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// Transient: A new instance is created every time it is requested.
+// Scoped: A new instance is created once per request or scope.
+// Singleton: A single instance is created and shared throughout the application’s lifetime.
+
 builder.Services.AddScoped<PasswordHasher>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<UserService>();
@@ -34,55 +39,15 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-
-//  db with 2 passengers
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AeroDbContext>();
-    // dbContext.Database.Migrate();
-
-     try
-    {
-        if (dbContext.Database.CanConnect())
-        {
-            Console.WriteLine("✅ Database connection successful");
-        }
-        else
-        {
-            Console.WriteLine("❌ Cannot connect to database");
-        }
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"❌ DB connection error: {ex.Message}");
-        // Log error if seeding fails
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred seeding the database.");
-    }
-
-    dbContext.Database.EnsureDeleted();
-    dbContext.Database.EnsureCreated();
-
-    dbContext.Users.AddRange(
-        new User
-        {
-            FirstName = "John",
-            LastName = "Doe",
-            Email = "jdow@test.com",
-            DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-            PasswordHash = "testhash"
-        },
-        new User
-        {
-            FirstName = "Jane",
-            LastName = "Smith",
-            Email = "jsmaith@mail.com",
-            DateOfBirth = new DateTime(1985, 4, 2, 0, 0, 0, DateTimeKind.Utc),
-            PasswordHash = "testhash"
-        }
-    );
-    dbContext.SaveChanges();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    DbInitializer.Initialize(dbContext, logger);
 }
+
+
+
 
 app.UseExceptionHandler(appError =>
 {

@@ -24,6 +24,17 @@ public class UserService
         return Regex.IsMatch(email, emailPattern);
     }
 
+    private UserResponseDto MapUserToDto (User createdUser){
+
+        return new UserResponseDto
+        {
+            Id = createdUser.Id,
+            FullName = createdUser.FullName,
+            Email = createdUser.Email,
+            Age = createdUser.CalculateAge()
+        };
+    }
+
     public async Task<UserResponseDto> CreateUser(CreateUserDto createDto)
     {
         if (!IsEmailValid(createDto.Email))
@@ -36,7 +47,6 @@ public class UserService
             throw new InvalidOperationException("Passenger with this email already exists.");
         }
 
-        //create user
         var user = new User
         {
             FirstName = createDto.FirstName,
@@ -47,14 +57,7 @@ public class UserService
         };
 
         var createdUser = await _repository.Create(user);
-
-        return new UserResponseDto
-        {
-            Id = createdUser.Id,
-            FullName = createdUser.FullName,
-            Email = createdUser.Email,
-            Age = createdUser.CalculateAge()
-        };
+        return MapUserToDto(createdUser);
     }
 
     public async Task<UserResponseDto?> GetUserById(int id)
@@ -76,14 +79,7 @@ public class UserService
     public async Task<List<UserResponseDto>> GetAll()
     {
         var users = await _repository.GetAllUsers();
-
-        return [.. users.Select(u => new UserResponseDto
-        {
-            Id = u.Id,
-            FullName = u.FullName,
-            Email = u.Email,
-            Age = u.CalculateAge()
-        })];
+        return users.Select(MapUserToDto).ToList();
     }
 }
 
