@@ -1,0 +1,83 @@
+# =========================
+# Build artifacts
+# =========================
+bin/
+obj/
+out/
+
+# =========================
+# User-specific files
+# =========================
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# =========================
+# VS Code / IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!*.env.example
+
+# =========================
+# ASP.NET Core
+# =========================
+appsettings.Development.json
+
+# Optional: ignore all env-specific configs
+# appsettings.*.json
+# !appsettings.json
+
+# =========================
+# EF Core migrations (optional — usually KEEP these)
+# =========================
+# Migrations/
+
+# =========================
+# Test results
+# =========================
+TestResults/
+*.trx
+
+# =========================
+# NuGet
+# =========================
+*.nupkg
+.nuget/
+packages/
+
+# =========================
+# Rider / Resharper
+# =========================
+_ReSharper*/
+*.DotSettings.user
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
+
+# =========================
+# Coverage reports
+# =========================
+coverage/
+*.coverage
+*.coveragexml
