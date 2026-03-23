@@ -7,7 +7,7 @@ Built with ASP.NET Core and Entity Framework, using Docker for database setup.
 ## 🛠 Techstack
 - ASP.NET Core (.NET v10) 
 - Entity Framework Core
-- SQL Server (Docker)
+- SQL PostgreSql (Docker)
 - xUnit (unit testing)
 - Swagger / OpenAPI
 
