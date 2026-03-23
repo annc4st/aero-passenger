@@ -43,7 +43,7 @@ JSON
   ```
 
 **Flights**
-- GET api/flights?
+- GET api/flights
 - GET api/flights/{id}
 - POST api/flights
 
