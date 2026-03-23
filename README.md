@@ -3,6 +3,7 @@
 To run project:
 If you do not have docker desktiop running, make sure it is installed and running.
 - `docker compose up -d` - to run database in a container
+- `dotnet build`
 - `dotnet run`
 
 ### Endpoints
@@ -15,6 +16,7 @@ http://localhost:5204/
 - GET api/users/{id}
 - POST api/users
 
+Example of POST request json body:
 ```
 { 
   "firstName": "testUser",
@@ -45,6 +47,7 @@ http://localhost:5204/
 - GET /api/bookings/by-email?email=john@mail.com
 
 - POST /api/bookings
+Example of POST request json body:
 ```
 {
   "passengerId": 2,
