@@ -53,10 +53,7 @@ public class FlightService
 
     public async Task<List<FlightResponseDto>> GetFlightsService()
     {
-        var fligths = await _repository.GetFlights();
-        return fligths.Select(MapToDto).ToList();
-        
+        var flights = await _repository.GetFlights();
+        return flights.Select(MapToDto).ToList();
     }
-
-
 }

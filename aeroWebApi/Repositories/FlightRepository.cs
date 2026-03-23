@@ -26,7 +26,7 @@ public class FlightRepository
         
     }
 
-    public async Task<List<Flight>> GetFlights ()
+    public async Task<IEnumerable<Flight>> GetFlights ()
     {
         var flights = await _context.Flights.ToListAsync();
         return flights;
