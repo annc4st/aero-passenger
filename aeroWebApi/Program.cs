@@ -39,7 +39,6 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     Console.WriteLine($"Environment: {app.Environment.EnvironmentName}");
-    // var logger = app.Services.GetRequiredService<ILogger<Program>>();
     logger.LogInformation("Environment: {env}", app.Environment.EnvironmentName);
     app.MapOpenApi();
 }

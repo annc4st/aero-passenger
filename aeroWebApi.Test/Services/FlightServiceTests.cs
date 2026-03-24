@@ -4,6 +4,7 @@ using aeroWebApi.Services;
 using aeroWebApi.Repositories;
 using aeroWebApi.DTOs;
 using aeroWebApi.Entity;
+using aeroWebApi.Exceptions;
 
 namespace aeroWebApi.Test.Services;
 
@@ -14,7 +15,7 @@ public class FlightServiceTests
 
     public FlightServiceTests()
     {
-        _mockRepo = new Mock<IFlightRepository>(); // crates fake repos
+        _mockRepo = new Mock<IFlightRepository>(); // crates fake reposit
         _service = new FlightService(_mockRepo.Object); //actual object passed to service
     }
 
@@ -56,4 +57,15 @@ public class FlightServiceTests
         Assert.Equal(1, result.Id);
 
     }
+
+    [Fact]
+    public async Task GetFlightById_WhenNotFound_ShouldThrowException ()
+    {
+        _mockRepo.Setup(r => r.GetFlightById(9))
+        .ReturnsAsync((Flight?)null);
+
+        await Assert.ThrowsAsync<NotFoundException>(() => _service.GetFlightById(9));
+    }
+
+
 }
