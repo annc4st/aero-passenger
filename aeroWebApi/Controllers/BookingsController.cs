@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.OpenApi;
 using aeroWebApi.Services;
 using aeroWebApi.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -14,32 +11,32 @@ namespace aeroWebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-
-public class BookingsController: ControllerBase
+public class BookingsController : ControllerBase
 {
     private readonly BookingService _service;
 
-    public BookingsController (BookingService service)
+    public BookingsController(BookingService service)
     {
         _service = service;
     }
 
 // GET /api/bookings?userId=1&flightId=10
     [HttpGet]
-     public async Task<ActionResult<BookingResponseDto>> GetAllBookings([FromQuery] int? userId, [FromQuery] int? flightId)
-{
-    var bookings = await _service.FetchBookings(userId, flightId);
+    public async Task<ActionResult<BookingResponseDto>> GetAllBookings([FromQuery] int? userId,
+        [FromQuery] int? flightId)
+    {
+        var bookings = await _service.FetchBookings(userId, flightId);
 
-    return Ok(bookings);
-}
+        return Ok(bookings);
+    }
 
     [HttpGet("{id}")]
-  public async Task<ActionResult<BookingResponseDto>> GetBookingById(int id)
-{
-    var booking = await _service.GetBookingById(id);
+    public async Task<ActionResult<BookingResponseDto>> GetBookingById(int id)
+    {
+        var booking = await _service.GetBookingById(id);
 
-    return Ok(booking);
-}
+        return Ok(booking);
+    }
 
     // GET /api/bookings/by-email?email=user@example.com
     [HttpGet("by-email")]
@@ -55,12 +52,9 @@ public class BookingsController: ControllerBase
     {
         var createdBooking = await _service.CreateBooking(dto);
         return CreatedAtAction(nameof(GetBookingById),
-        new { id = createdBooking.Id},
-        createdBooking
+            new { id = createdBooking.Id },
+            createdBooking
         );
     }
-
-
-
 }
 

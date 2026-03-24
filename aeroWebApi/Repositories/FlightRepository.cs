@@ -5,7 +5,7 @@ using aeroWebApi.Entity;
 
 namespace aeroWebApi.Repositories;
 
-public class FlightRepository
+public class FlightRepository : IFlightRepository
 {
     private readonly AeroDbContext _context;
     public FlightRepository(AeroDbContext context)

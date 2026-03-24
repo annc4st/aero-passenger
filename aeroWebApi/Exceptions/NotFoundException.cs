@@ -1,4 +1,3 @@
-using System;
 
 namespace aeroWebApi.Exceptions;
 public class NotFoundException : Exception

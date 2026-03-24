@@ -1,15 +1,16 @@
 using aeroWebApi.DTOs;
-using aeroWebApi.Repositories;
+// using aeroWebApi.Repositories;
 using aeroWebApi.Entity;
 using aeroWebApi.Exceptions;
+using aeroWebApi.Repositories;
 
 namespace aeroWebApi.Services;
 
 public class FlightService
 {
-    private readonly FlightRepository _repository;
+    private readonly IFlightRepository _repository;
 
-    public FlightService(FlightRepository repository)
+    public FlightService(IFlightRepository repository)
     {
         _repository = repository;
     }

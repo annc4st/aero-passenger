@@ -1,11 +1,9 @@
 using aeroWebApi.Services;
 using aeroWebApi.Repositories;
 using aeroWebApi.Data;
-using aeroWebApi.Entity;
 using Microsoft.EntityFrameworkCore;
 using aeroWebApi.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +23,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<BookingRepository>();
 builder.Services.AddScoped<BookingService>();
 builder.Services.AddScoped<FlightRepository>();
+builder.Services.AddScoped<IFlightRepository, FlightRepository>();
 builder.Services.AddScoped<FlightService>();
 
 
